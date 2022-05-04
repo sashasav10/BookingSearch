@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Diploma</string>
+    <string name="date_example">Tue, Feb 8 - Wed, Feb 9</string>
+    <string name="filter_example">1 room | 2 adults | No children</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="confirm">Confirm</string>
+    <string name="rooms">Rooms</string>
+    <string name="adults">Adults</string>
+    <string name="children">Children</string>
+    <string name="search">Search</string>
+</resources>
