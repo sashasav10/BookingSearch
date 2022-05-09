@@ -104,7 +104,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/add1"
+            android:id="@+id/minusRo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -112,16 +112,16 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/room_filter"
+            android:id="@+id/roomCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
+            android:text="1"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/minus1"
+            android:id="@+id/addRo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -139,7 +139,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
-            android:id="@+id/add2"
+            android:id="@+id/minusAd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -147,7 +147,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/adult_filter"
+            android:id="@+id/adultCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2"
@@ -156,7 +156,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/minus2"
+            android:id="@+id/addAd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -174,7 +174,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <Button
-            android:id="@+id/add3"
+            android:id="@+id/minusCh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -182,16 +182,16 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/child_filter"
+            android:id="@+id/childCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
+            android:text="0"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/minus3"
+            android:id="@+id/addCh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

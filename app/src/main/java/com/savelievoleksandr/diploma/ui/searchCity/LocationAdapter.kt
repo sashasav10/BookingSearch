@@ -6,14 +6,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.savelievoleksandr.diploma.R
-import com.savelievoleksandr.diploma.data.locations.LocationDto
 import com.savelievoleksandr.diploma.data.locations.LocationDtoItem
 
-class LocationAdapter(private val location: LocationDto) :
-    RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
+interface OnLocationClick {
+    fun onClick(
+        locationId: Int,
+        label: String,
+        dest_type: String,
+        room: Int,
+        adult: Int,
+        children: Int,
+        checkoutDate: String,
+        checkinDate: String
+    )
+}
+
+class LocationAdapter(val locationClick: OnLocationClick) :
+    ListAdapter<LocationDtoItem, LocationAdapter.ViewHolder>(object :
+        DiffUtil.ItemCallback<LocationDtoItem>() {
+
+
+        override fun areContentsTheSame(
+            oldItem: LocationDtoItem,
+            newItem: LocationDtoItem
+        ): Boolean =
+            oldItem == newItem
+
+        override fun areItemsTheSame(oldItem: LocationDtoItem, newItem: LocationDtoItem): Boolean =
+            oldItem.dest_id == newItem.dest_id
+    }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.search_city_item, parent, false)
@@ -21,10 +47,8 @@ class LocationAdapter(private val location: LocationDto) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        location?.let { holder.bind(it.get(position), holder.itemView.context) }
+        holder.bind(getItem(position), holder.itemView.context)
     }
-
-    override fun getItemCount() = location.size
 
     inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
@@ -33,6 +57,9 @@ class LocationAdapter(private val location: LocationDto) :
         val regionLocationTV: TextView = itemView.findViewById(R.id.regionLocationTV)
         val propertiesLocationTV: TextView = itemView.findViewById(R.id.propertiesLocationTV)
         fun bind(data: LocationDtoItem, context: Context) {
+            itemView.setOnClickListener {
+                locationClick.onClick(data.dest_id, data.label, data.dest_type,1,1,0,"","")
+            }
             labelLocationTV.text = data.label
             regionLocationTV.text = "${data.dest_type}, ${data.region}, ${data.country}"
             propertiesLocationTV.text = "${data.hotels} Properties"

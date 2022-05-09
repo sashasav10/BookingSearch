@@ -25,7 +25,7 @@ class PopularHotelAdapter(private val hotels: HotelDto) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        hotels.result?.let { holder.bind(it.get(position), holder.itemView.context) }
+        hotels.result.let { holder.bind(it.get(position), holder.itemView.context) }
     }
 
     override fun getItemCount() = hotels.count

@@ -7,7 +7,7 @@ class LocationDto : ArrayList<LocationDtoItem>()
 data class LocationDtoItem(
     @Json(name = "city_name")  val city_name: String,
     @Json(name = "country")  val country: String,
-    @Json(name = "dest_id") val dest_id: String,
+    @Json(name = "dest_id") val dest_id: Int,
     @Json(name = "dest_type") val dest_type: String,
     @Json(name = "hotels") val hotels: Int,
     @Json(name = "image_url") val image_url: String,

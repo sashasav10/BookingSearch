@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.savelievoleksandr.diploma.data.HotelDto
-import com.savelievoleksandr.diploma.data.HotelRepository
+import com.savelievoleksandr.diploma.data.hotels.HotelRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
@@ -20,7 +20,10 @@ class MainViewModel : ViewModel() {
 
     private fun getPopularHotel() {
         viewModelScope.launch {
-            hotelRepository.getHotel() {
+            hotelRepository.getHotel(
+                "2022-08-12", 220, "country", 2,
+                "UAH", "2022-08-10", 1,null
+            ) {
                 _popularHotelResult.value = it
             }
         }

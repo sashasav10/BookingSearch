@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.savelievoleksandr.diploma">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,7 +22,16 @@
         </activity>
         <activity
             android:name=".ui.searchCity.SearchCityActivity"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".ui.filter.FilterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.personFragment.PersonFragment"
+            android:exported="true" />
+        <activity
+            android:name=".ui.hotelDeteiled.HotelActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
