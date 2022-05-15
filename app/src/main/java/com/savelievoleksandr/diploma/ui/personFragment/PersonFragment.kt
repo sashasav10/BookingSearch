@@ -1,38 +1,56 @@
 package com.savelievoleksandr.diploma.ui.personFragment
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
+import com.savelievoleksandr.diploma.R
 import com.savelievoleksandr.diploma.databinding.FilterFragmentBinding
-import com.savelievoleksandr.diploma.ui.GeneralBinding
-import com.savelievoleksandr.diploma.ui.filter.FilterActivity
 
 
-class PersonFragment : GeneralBinding<FilterFragmentBinding>(FilterFragmentBinding::inflate) {
-    override fun onCreate(savedInstanceState: Bundle?) {
+class PersonFragment : DialogFragment(R.layout.filter_fragment){
+    private lateinit var binding: FilterFragmentBinding
+
+    interface OnInputListener {
+        fun sendInput(room:Int,adult:Int,children:Int)
+    }
+    var listener: OnInputListener? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var window = dialog?.window
+        window?.setGravity(Gravity.BOTTOM)
+        return inflater.inflate(R.layout.filter_fragment,container,false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FilterFragmentBinding.inflate(layoutInflater)
+        super.onViewCreated(view, savedInstanceState)
         var room = 1
         var adult = 2
         var children = 0
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        val arguments = intent.extras
-        val locationId = arguments?.getInt("locationId")
-        val destType = arguments?.getString("dest_type").toString()
-        val label = arguments?.getString("label").toString()
-        val checkoutDate = arguments?.getString("checkoutDate").toString()
-        val checkinDate = arguments?.getString("checkinDate").toString()
-        val addRo: Button = binding.addRo
-        val minusRo: Button = binding.minusRo
-        val addAd: Button = binding.addAd
-        val minusAd: Button = binding.minusAd
-        val addCh: Button = binding.addCh
-        val minusCh: Button = binding.minusCh
-        val roomCount: TextView = binding.roomCount
-        val adultCount: TextView = binding.adultCount
-        val childCount: TextView = binding.childCount
+//        val locationId = arguments?.getInt("locationId")
+//        val destType = arguments?.getString("dest_type").toString()
+//        val label = arguments?.getString("label").toString()
+//        val checkoutDate: String = arguments?.getString("checkoutDate").toString()
+//        val checkinDate = arguments?.getString("checkinDate").toString()
+        val addRo: Button = view.findViewById(R.id.addRo)
+        val minusRo: Button = view.findViewById(R.id.minusRo)
+        val addAd: Button = view.findViewById(R.id.addAd)
+        val minusAd: Button = view.findViewById(R.id.minusAd)
+        val addCh: Button = view.findViewById(R.id.addCh)
+        val minusCh: Button = view.findViewById(R.id.minusCh)
+        val roomCount: TextView = view.findViewById(R.id.roomCount)
+        val adultCount: TextView = view.findViewById(R.id.adultCount)
+        val childCount: TextView = view.findViewById(R.id.childCount)
 
-        val confirmBtn: TextView = binding.confirmBtn
+        val confirmBtn: TextView = view.findViewById(R.id.confirmBtn)
 
         addRo.setOnClickListener {
             room++
@@ -59,14 +77,20 @@ class PersonFragment : GeneralBinding<FilterFragmentBinding>(FilterFragmentBindi
             childCount.text = children.toString()
         }
         confirmBtn.setOnClickListener {
-            val intent = Intent(this, FilterActivity::class.java)
-            intent.putExtra("locationId", locationId).putExtra("dest_type", destType)
-                .putExtra("label", label).putExtra("room", room)
-                .putExtra("adult", adult).putExtra("children", children)
-                .putExtra("checkoutDate", checkoutDate)
-                .putExtra("checkinDate", checkinDate)
-            this.finish()
-            startActivity(intent)
+            listener!!.sendInput(room, adult, children)
+            dismiss()
+//            val intent = Intent(activity, FilterActivity::class.java)
+//            intent.putExtra("locationId", locationId).putExtra("dest_type", destType)
+//                .putExtra("label", label).putExtra("room", room)
+//                .putExtra("adult", adult).putExtra("children", children)
+//                .putExtra("checkoutDate", checkoutDate)
+//                .putExtra("checkinDate", checkinDate)
+//            startActivity(intent)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener=context as OnInputListener
     }
 }

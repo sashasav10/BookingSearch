@@ -76,7 +76,7 @@
 
     <Button
         android:id="@+id/confirmBtn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -85,6 +85,7 @@
         android:fontFamily="sans-serif-light"
         android:foregroundTint="#F7BA0D"
         android:text="@string/confirm"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
         app:cornerRadius="15dp"
@@ -97,10 +98,12 @@
         android:id="@+id/linearLayout"
         android:layout_width="182dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button

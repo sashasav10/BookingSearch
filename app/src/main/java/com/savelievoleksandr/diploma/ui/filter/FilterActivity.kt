@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.savelievoleksandr.diploma.R
@@ -16,7 +17,12 @@ import com.savelievoleksandr.diploma.ui.personFragment.PersonFragment
 import com.savelievoleksandr.diploma.ui.searchCity.SearchCityActivity
 import java.text.SimpleDateFormat
 
-class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBinding::inflate) {
+
+class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBinding::inflate),
+    PersonFragment.OnInputListener {
+    var room = 1
+    var adult = 2
+    var children = 0
     private val viewModel by viewModels<FilterViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +31,9 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         val locationId = arguments?.getInt("locationId")!!.toInt()
         val dest_type = arguments.getString("dest_type").toString()
         val label = arguments.getString("label").toString()
-        var room = arguments.getInt("room")
-        var adult = arguments.getInt("adult")
-        var children = arguments.getInt("children")
+        room = arguments.getInt("room")
+        adult = arguments.getInt("adult")
+        children = arguments.getInt("children")
         var checkoutDate = arguments.getString("checkoutDate").toString()
         var checkinDate = arguments.getString("checkinDate").toString()
 
@@ -69,19 +75,19 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
             }
         }
         personsField.setOnClickListener {
-            val intent = Intent(this, PersonFragment::class.java)
-            intent.putExtra("locationId", locationId).putExtra("label", label)
-                .putExtra("dest_type", dest_type).putExtra("checkoutDate", checkoutDate)
-                .putExtra("checkinDate", checkinDate)
-            this.finish()
-            startActivity(intent)
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = PersonFragment()
+            fragment.show(fragmentManager, "Choose number of pearson")
+//            fragmentTransaction.add(R.id.fragment_container_view, PersonFragment())
+//                .commit()
         }
         backBtn.setOnClickListener { this.finish() }
         filterBack.setOnClickListener { this.finish() }
         clearBtn.setOnClickListener {
             dateTextView.text = "Select dates"
-            checkinDate=""
-            checkoutDate=""
+            checkinDate = ""
+            checkoutDate = ""
             room = 0
             adult = 0
             children = 0
@@ -89,12 +95,25 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         }
 
         searchBtn.setOnClickListener {
-            val intent = Intent(this, HotelActivity::class.java)
-            intent.putExtra("locationId", locationId).putExtra("label", label)
-                .putExtra("dest_type", dest_type).putExtra("checkoutDate", checkoutDate)
-                .putExtra("checkinDate", checkinDate).putExtra("room", room)
-                .putExtra("adult", adult).putExtra("children", children)
-            startActivity(intent)
+            if (room == 0 || adult == 0 || checkinDate == "" || checkoutDate == "" || locationId == 0) {
+                Toast.makeText(this, "Please enter all fields before searching", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                val intent = Intent(this, HotelActivity::class.java)
+                intent.putExtra("locationId", locationId).putExtra("label", label)
+                    .putExtra("dest_type", dest_type).putExtra("checkoutDate", checkoutDate)
+                    .putExtra("checkinDate", checkinDate).putExtra("room", room)
+                    .putExtra("adult", adult).putExtra("children", children)
+                startActivity(intent)
+            }
         }
+    }
+
+    override fun sendInput(RRoom: Int, RAdult: Int, RChildren: Int) {
+        room = RRoom
+        adult = RAdult
+        children = RChildren
+        val filterTextView: TextView = findViewById(R.id.filterTextView)
+        filterTextView.text = "$room room | $adult adilts | $children children"
     }
 }
