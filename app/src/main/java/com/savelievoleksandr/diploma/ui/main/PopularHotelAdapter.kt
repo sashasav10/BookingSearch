@@ -25,16 +25,16 @@ class PopularHotelAdapter(private val hotels: HotelDto) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        hotels.result.let { holder.bind(it.get(position), holder.itemView.context) }
+        hotels.result.let { holder.bind(it[position], holder.itemView.context) }
     }
 
     override fun getItemCount() = hotels.count
 
     inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        val icon: ImageView = itemView.findViewById(R.id.hotelMPImage)
-        val hotelNameMP: TextView = itemView.findViewById(R.id.hotelNameMP)
-        val cityNameMP: TextView = itemView.findViewById(R.id.cityNameMP)
+        private val icon: ImageView = itemView.findViewById(R.id.hotelMPImage)
+        private val hotelNameMP: TextView = itemView.findViewById(R.id.hotelNameMP)
+        private val cityNameMP: TextView = itemView.findViewById(R.id.cityNameMP)
         fun bind(data: ResultDto, context: Context) {
             if (data.hotel_name.length > 35) {
                 hotelNameMP.text = data.hotel_name.substring(0, 35) + "..."

@@ -13,7 +13,6 @@ import com.savelievoleksandr.diploma.ui.searchCity.SearchCityActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
-    private lateinit var popularHotelAdapter: PopularHotelAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

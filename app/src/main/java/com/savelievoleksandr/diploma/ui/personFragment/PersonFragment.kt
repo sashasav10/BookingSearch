@@ -19,10 +19,10 @@ class PersonFragment : DialogFragment(R.layout.filter_fragment){
     interface OnInputListener {
         fun sendInput(room:Int,adult:Int,children:Int)
     }
-    var listener: OnInputListener? = null
+    private var listener: OnInputListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var window = dialog?.window
+        val window = dialog?.window
         window?.setGravity(Gravity.BOTTOM)
         return inflater.inflate(R.layout.filter_fragment,container,false)
     }
@@ -35,11 +35,6 @@ class PersonFragment : DialogFragment(R.layout.filter_fragment){
         var adult = 2
         var children = 0
         super.onCreate(savedInstanceState)
-//        val locationId = arguments?.getInt("locationId")
-//        val destType = arguments?.getString("dest_type").toString()
-//        val label = arguments?.getString("label").toString()
-//        val checkoutDate: String = arguments?.getString("checkoutDate").toString()
-//        val checkinDate = arguments?.getString("checkinDate").toString()
         val addRo: Button = view.findViewById(R.id.addRo)
         val minusRo: Button = view.findViewById(R.id.minusRo)
         val addAd: Button = view.findViewById(R.id.addAd)
@@ -79,13 +74,6 @@ class PersonFragment : DialogFragment(R.layout.filter_fragment){
         confirmBtn.setOnClickListener {
             listener!!.sendInput(room, adult, children)
             dismiss()
-//            val intent = Intent(activity, FilterActivity::class.java)
-//            intent.putExtra("locationId", locationId).putExtra("dest_type", destType)
-//                .putExtra("label", label).putExtra("room", room)
-//                .putExtra("adult", adult).putExtra("children", children)
-//                .putExtra("checkoutDate", checkoutDate)
-//                .putExtra("checkinDate", checkinDate)
-//            startActivity(intent)
         }
     }
 

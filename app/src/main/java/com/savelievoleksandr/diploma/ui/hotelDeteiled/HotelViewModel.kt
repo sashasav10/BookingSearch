@@ -16,7 +16,7 @@ class HotelViewModel : ViewModel() {
     private val hotelRepository = HotelRepository()
 
     private val _photoResult = MutableLiveData<PhotoDto>()
-    var photoResult: LiveData<PhotoDto> = _photoResult
+    private var photoResult: LiveData<PhotoDto> = _photoResult
     private val photoRepository = PhotoRepository()
     fun getHotel(
         checkout_date: String,

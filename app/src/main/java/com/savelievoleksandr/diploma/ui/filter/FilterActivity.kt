@@ -7,9 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.savelievoleksandr.diploma.R
 import com.savelievoleksandr.diploma.databinding.ActivityFilterBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
 import com.savelievoleksandr.diploma.ui.hotelDeteiled.HotelActivity
@@ -20,13 +18,12 @@ import java.text.SimpleDateFormat
 
 class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBinding::inflate),
     PersonFragment.OnInputListener {
-    var room = 1
-    var adult = 2
-    var children = 0
-    private val viewModel by viewModels<FilterViewModel>()
+    private var room = 1
+    private var adult = 2
+    private var children = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_filter)
+        setContentView(binding.root)
         val arguments = intent.extras
         val locationId = arguments?.getInt("locationId")!!.toInt()
         val dest_type = arguments.getString("dest_type").toString()
@@ -34,23 +31,28 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         room = arguments.getInt("room")
         adult = arguments.getInt("adult")
         children = arguments.getInt("children")
-        var checkoutDate = arguments.getString("checkoutDate").toString()
-        var checkinDate = arguments.getString("checkinDate").toString()
 
-        val cityTextView: TextView = findViewById(R.id.cityTextView)
+        var checkoutDate = arguments.getString("checkoutDate")
+        var checkinDate = arguments.getString("checkinDate")
+        if (checkoutDate == "null" || checkinDate == "null") {
+            checkoutDate = ""
+            checkinDate = ""
+        }
+        val cityTextView: TextView = binding.cityTextView
         cityTextView.text = label
-        val dateTextView: TextView = findViewById(R.id.dateTextView)
-        dateTextView.text = "$checkinDate  –  $checkoutDate"
-        val filterTextView: TextView = findViewById(R.id.filterTextView)
-        filterTextView.text = "$room room | $adult adilts | $children children"
-        val backBtn: ImageButton = findViewById(R.id.backBtn)
-        val filterBack: TextView = findViewById(R.id.filterBack)
-        val clearBtn: Button = findViewById(R.id.clearBtn)
+        val dateTextView: TextView = binding.dateTextView
 
-        val inputCityBtn: View = findViewById(R.id.inputCityBtn)
-        val dateField: View = findViewById(R.id.dateField)
-        val personsField: View = findViewById(R.id.filterField)
-        val searchBtn: Button = findViewById(R.id.searchBtn)
+        dateTextView.text = "$checkinDate  –  $checkoutDate"
+        val filterTextView: TextView = binding.filterTextView
+        filterTextView.text = "$room room | $adult adilts | $children children"
+        val backBtn: ImageButton = binding.backBtn
+        val filterBack: TextView = binding.filterBack
+        val clearBtn: Button = binding.clearBtn
+
+        val inputCityBtn: View = binding.inputCityBtn
+        val dateField: View = binding.dateField
+        val personsField: View = binding.filterField
+        val searchBtn: Button = binding.searchBtn
 
         inputCityBtn.setOnClickListener {
             val intent = Intent(this, SearchCityActivity::class.java)
@@ -66,7 +68,7 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
                     .setTitleText("Select dates")
                     //.setTheme(R.style.Theme_App)
                     .build()
-            dateRangePicker.show(supportFragmentManager, "tag");
+            dateRangePicker.show(supportFragmentManager, "tag")
             val format = SimpleDateFormat("yyyy-MM-dd")
             dateRangePicker.addOnPositiveButtonClickListener {
                 checkoutDate = format.format(it.second)
@@ -76,11 +78,9 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         }
         personsField.setOnClickListener {
             val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentManager.beginTransaction()
             val fragment = PersonFragment()
             fragment.show(fragmentManager, "Choose number of pearson")
-//            fragmentTransaction.add(R.id.fragment_container_view, PersonFragment())
-//                .commit()
         }
         backBtn.setOnClickListener { this.finish() }
         filterBack.setOnClickListener { this.finish() }
@@ -95,7 +95,8 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         }
 
         searchBtn.setOnClickListener {
-            if (room == 0 || adult == 0 || checkinDate == "" || checkoutDate == "" || locationId == 0) {
+            if (room == 0 || adult == 0 || checkinDate == "" || checkoutDate == "" || locationId == 0
+            ) {
                 Toast.makeText(this, "Please enter all fields before searching", Toast.LENGTH_SHORT)
                     .show()
             } else {
@@ -109,11 +110,11 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         }
     }
 
-    override fun sendInput(RRoom: Int, RAdult: Int, RChildren: Int) {
-        room = RRoom
-        adult = RAdult
-        children = RChildren
-        val filterTextView: TextView = findViewById(R.id.filterTextView)
-        filterTextView.text = "$room room | $adult adilts | $children children"
+    override fun sendInput(room: Int, adult: Int, children: Int) {
+        this.room = room
+        this.adult = adult
+        this.children = children
+        val filterTextView: TextView = binding.filterTextView
+        filterTextView.text = "${this.room} room | ${this.adult} adilts | ${this.children} children"
     }
 }

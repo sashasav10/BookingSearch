@@ -6,10 +6,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.models.SlideModel
-import com.savelievoleksandr.diploma.R
-import com.savelievoleksandr.diploma.databinding.ActivityFilterBinding.inflate
 import com.savelievoleksandr.diploma.databinding.ActivityHotelDeteiledBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
 
@@ -19,7 +15,7 @@ class HotelActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hotel_deteiled)
+        setContentView(binding.root)
         val arguments = intent.extras
         val dest_id = arguments?.getInt("locationId")!!.toInt()
         val dest_type = arguments?.getString("dest_type").toString()
@@ -31,12 +27,12 @@ class HotelActivity :
         val children = arguments.getInt("children")
         Log.i("SASHA", "$checkoutDate, $dest_id, $dest_type, $adult, UAH, $checkinDate, $room, children $children")
 
-        val backBtn2: ImageButton = findViewById(R.id.backBtn2)
-        val cityTV: TextView = findViewById(R.id.cityTV)
+        val backBtn2: ImageButton = binding.backBtn2
+        val cityTV: TextView = binding.cityTV
         cityTV.text=label.split(",")[0]
         backBtn2.setOnClickListener { this.finish() }
         cityTV.setOnClickListener { this.finish() }
-        val recyclerView: RecyclerView = findViewById(R.id.hotelRecyclerView)
+        val recyclerView: RecyclerView = binding.hotelRecyclerView
         viewModel.getHotel(checkoutDate, dest_id, dest_type, adult, checkinDate, room, children)
 
         viewModel.hotelResult.observe(this) {

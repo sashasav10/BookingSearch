@@ -13,16 +13,15 @@ import com.savelievoleksandr.diploma.R
 import com.savelievoleksandr.diploma.databinding.ActivitySearchCityBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
 import com.savelievoleksandr.diploma.ui.filter.FilterActivity
-import kotlin.properties.Delegates
 
 class SearchCityActivity :
     GeneralBinding<ActivitySearchCityBinding>(ActivitySearchCityBinding::inflate), OnLocationClick {
     private val viewModel by viewModels<SearchCityViewModel>()
-    var checkoutDate: String by Delegates.notNull()
-    var checkinDate: String by Delegates.notNull()
-    var room: Int by Delegates.notNull()
-    var adult: Int by Delegates.notNull()
-    var children: Int by Delegates.notNull()
+    private var checkoutDate: String = ""
+    private var checkinDate: String = ""
+    private var room: Int = 1
+    private var adult: Int = 2
+    private var children: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_city)
@@ -73,12 +72,7 @@ class SearchCityActivity :
     override fun onClick(
         locationId: Int,
         label: String,
-        dest_type: String,
-        room: Int,
-        adult: Int,
-        children: Int,
-        checkoutDate: String,
-        checkinDate: String
+        dest_type: String
     ) {
         val intent = Intent(this, FilterActivity::class.java)
         intent.putExtra("locationId", locationId).putExtra("dest_type", dest_type)

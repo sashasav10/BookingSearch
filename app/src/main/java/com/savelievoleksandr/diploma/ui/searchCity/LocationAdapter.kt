@@ -17,12 +17,7 @@ interface OnLocationClick {
     fun onClick(
         locationId: Int,
         label: String,
-        dest_type: String,
-        room: Int,
-        adult: Int,
-        children: Int,
-        checkoutDate: String,
-        checkinDate: String
+        dest_type: String
     )
 }
 
@@ -52,13 +47,14 @@ class LocationAdapter(val locationClick: OnLocationClick) :
 
     inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        val imageLocation: ImageView = itemView.findViewById(R.id.imageLocation)
-        val labelLocationTV: TextView = itemView.findViewById(R.id.labelLocationTV)
-        val regionLocationTV: TextView = itemView.findViewById(R.id.regionLocationTV)
-        val propertiesLocationTV: TextView = itemView.findViewById(R.id.propertiesLocationTV)
+        private val imageLocation: ImageView = itemView.findViewById(R.id.imageLocation)
+        private val labelLocationTV: TextView = itemView.findViewById(R.id.labelLocationTV)
+        private val
+                regionLocationTV: TextView = itemView.findViewById(R.id.regionLocationTV)
+        private val propertiesLocationTV: TextView = itemView.findViewById(R.id.propertiesLocationTV)
         fun bind(data: LocationDtoItem, context: Context) {
             itemView.setOnClickListener {
-                locationClick.onClick(data.dest_id, data.label, data.dest_type,1,1,0,"","")
+                locationClick.onClick(data.dest_id, data.label, data.dest_type)
             }
             labelLocationTV.text = data.label
             regionLocationTV.text = "${data.dest_type}, ${data.region}, ${data.country}"
