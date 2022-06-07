@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.savelievoleksandr.diploma.R
-import com.savelievoleksandr.diploma.data.HotelDto
-import com.savelievoleksandr.diploma.data.ResultDto
+import com.savelievoleksandr.diploma.data.hotels.HotelDto
+import com.savelievoleksandr.diploma.data.hotels.ResultDto
 
 interface OnMostPopularClick {
     fun onClick(hotelId: Int)
@@ -28,7 +28,7 @@ class PopularHotelAdapter(private val hotels: HotelDto) :
         hotels.result.let { holder.bind(it[position], holder.itemView.context) }
     }
 
-    override fun getItemCount() = hotels.count
+    override fun getItemCount() = hotels.result.size
 
     inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {

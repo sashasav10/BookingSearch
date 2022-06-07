@@ -1,7 +1,6 @@
 package com.savelievoleksandr.diploma.data.hotels
 
 import android.util.Log
-import com.savelievoleksandr.diploma.data.HotelDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,7 +42,7 @@ class HotelRepository {
                 }
 
                 override fun onFailure(call: Call<HotelDto>, t: Throwable) {
-                    Log.d("Error", "Error booking.com")
+                    Log.d("ErrorSASHA", "Error booking.com")
                     t.printStackTrace()
                 }
             })

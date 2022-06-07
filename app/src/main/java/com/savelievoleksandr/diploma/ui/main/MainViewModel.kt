@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.savelievoleksandr.diploma.data.HotelDto
+import com.savelievoleksandr.diploma.data.hotels.HotelDto
 import com.savelievoleksandr.diploma.data.hotels.HotelRepository
 import kotlinx.coroutines.launch
 

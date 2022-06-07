@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.savelievoleksandr.diploma.databinding.ActivityFilterBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
-import com.savelievoleksandr.diploma.ui.hotelDeteiled.HotelActivity
+import com.savelievoleksandr.diploma.ui.hotels.HotelActivity
 import com.savelievoleksandr.diploma.ui.personFragment.PersonFragment
 import com.savelievoleksandr.diploma.ui.searchCity.SearchCityActivity
 import java.text.SimpleDateFormat

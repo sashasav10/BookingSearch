@@ -30,7 +30,10 @@
             android:name=".ui.personFragment.PersonFragment"
             android:exported="true" />
         <activity
-            android:name=".ui.hotelDeteiled.HotelActivity"
+            android:name=".ui.hotels.HotelActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.hotelDetailed.DetailedActivity"
             android:exported="true" />
     </application>
 

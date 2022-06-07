@@ -1,5 +1,4 @@
 package com.savelievoleksandr.diploma.data.hotels
-import com.savelievoleksandr.diploma.data.HotelDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -21,5 +20,4 @@ interface BookingApiService {
         @Query("room_number") room_number: Int,
         @Query("children_number") children_number: Int?
     ): Call<HotelDto>
-
 }

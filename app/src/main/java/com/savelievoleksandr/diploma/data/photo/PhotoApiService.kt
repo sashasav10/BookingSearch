@@ -6,7 +6,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface PhotoApiService {
-    @Headers("X-RapidAPI-Key:27825dae23msh675104a9c78f89ep13e682jsn3edba06cd5c4")
+    @Headers("X-RapidAPI-Key:e2272108d0msh3ad38c723a2566ep1c166cjsnfdb2855d6c04")
     @GET("v1/hotels/photos")
     fun getPhoto(
         @Query("locale") locale: String,
