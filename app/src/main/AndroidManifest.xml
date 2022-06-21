@@ -35,6 +35,15 @@
         <activity
             android:name=".ui.hotelDetailed.DetailedActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="true" />
+        <activity
+        android:name=".ui.auth.RegisterActivity"
+        android:exported="true" />
+        <activity
+            android:name=".ui.favorite.FavoriteActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

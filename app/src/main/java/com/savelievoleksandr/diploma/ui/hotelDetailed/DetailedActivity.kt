@@ -1,6 +1,7 @@
 package com.savelievoleksandr.diploma.ui.hotelDetailed
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.savelievoleksandr.diploma.R
+import com.savelievoleksandr.diploma.data.Favorite
 import com.savelievoleksandr.diploma.databinding.ActivityHotelDetailedBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
 
@@ -22,7 +28,8 @@ class DetailedActivity :
         setContentView(binding.root)
         val arguments = intent.extras
         val hotel_id = arguments?.getInt("hotel_id")!!.toInt()
-        val hotel_name = arguments?.getString("hotel_name").toString()
+        val hotel_name = arguments.getString("hotel_name").toString()
+        val city_name = arguments.getString("city_name").toString()
         val review_score = arguments.getDouble("review_score")
         val review_score_word = arguments.getString("review_score_word").toString()
         val addres = arguments.getString("address").toString()
@@ -31,6 +38,7 @@ class DetailedActivity :
         val hotel_include_breakfast = arguments.getByte("hotel_include_breakfast")
         val min_total_price = arguments.getDouble("min_total_price")
         val url = arguments.getString("url").toString()
+        val max_photo_url = arguments.getString("max_photo_url").toString()
         Log.i("SASHA","hotel_id in activity $hotel_id")
 
         val hotelName: TextView = binding.hotelName
@@ -42,6 +50,7 @@ class DetailedActivity :
         val breakfast: TextView = binding.breakfast
         val price: TextView = binding.price
         val bookBtn: Button = binding.bookBtn
+        val addToFavBtn: ImageButton = binding.addToFavBtn
         hotelName.text=hotel_name
             score.text=review_score.toString()
             scoreWord.text=review_score_word
@@ -63,6 +72,14 @@ class DetailedActivity :
         bookBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(browserIntent)
+        }
+        addToFavBtn.setOnClickListener {
+            addToFavBtn.setImageResource(R.drawable.ic_favorite)
+            val uid= FirebaseAuth.getInstance().currentUser?.uid
+            val fav=Favorite(hotel_id, hotel_name,city_name,addres,max_photo_url)
+            val database = Firebase.database("https://diploma-hotel-booking-default-rtdb.europe-west1.firebasedatabase.app/")
+            val myRef = database.getReference("users")
+            myRef.child(uid!!).child(hotel_id.toString()).setValue(fav)
         }
         val recyclerView: RecyclerView = binding.photoRecyclerView
         viewModel.getPhoto(hotel_id)

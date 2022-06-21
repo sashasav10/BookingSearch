@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "737799515291",
+    "project_id": "diploma-hotel-booking",
+    "storage_bucket": "diploma-hotel-booking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737799515291:android:5f4ad8223d0d9425f22a3e",
+        "android_client_info": {
+          "package_name": "com.savelievoleksandr.diploma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737799515291-0j0mjt0piejcfg35bs72n50mt3m3ltq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.savelievoleksandr.diploma",
+            "certificate_hash": "2ea5c7afde8f1433dad30411902fa529bd35c6dc"
+          }
+        },
+        {
+          "client_id": "737799515291-8r7k6pqnq53vfrgpg7a4ss7s708k79ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcmt_2U4tL562qtI6yIfOUbWuETq1Wx1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737799515291-8r7k6pqnq53vfrgpg7a4ss7s708k79ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

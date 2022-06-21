@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.savelievoleksandr.diploma.R
@@ -19,6 +17,7 @@ interface OnHotelClick {
     fun onClick(
         hotel_id:Int,
         hotel_name:String,
+        city_name:String,
         review_score:Double,
         review_score_word:String,
         address:String,
@@ -26,7 +25,8 @@ interface OnHotelClick {
         is_free_cancellable:Byte,
         hotel_include_breakfast:Byte,
         min_total_price:Double,
-        url:String
+        url:String,
+        max_photo_url:String
     )
 }
 
@@ -60,6 +60,7 @@ class HotelAdapter(val hotelClick: OnHotelClick?,private val hotels: HotelDto) :
                 hotelClick?.onClick(
                     data.hotel_id,
                     data.hotel_name,
+                    data.city_name_en,
                     data.review_score,
                     data.review_score_word,
                     data.address,
@@ -67,7 +68,8 @@ class HotelAdapter(val hotelClick: OnHotelClick?,private val hotels: HotelDto) :
                     data.is_free_cancellable,
                     data.hotel_include_breakfast,
                     data.min_total_price,
-                    data.url
+                    data.url,
+                    data.max_photo_url
                 )
             }
             Log.i(

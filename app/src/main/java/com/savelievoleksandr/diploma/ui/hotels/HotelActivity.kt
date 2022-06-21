@@ -52,6 +52,7 @@ class HotelActivity :
     override fun onClick(
         hotel_id: Int,
         hotel_name: String,
+        city_name:String,
         review_score: Double,
         review_score_word: String,
         address: String,
@@ -59,16 +60,17 @@ class HotelActivity :
         is_free_cancellable: Byte,
         hotel_include_breakfast: Byte,
         min_total_price: Double,
-        url: String
+        url: String,
+        max_photo_url:String
     ) {
         val intent = Intent(this, DetailedActivity::class.java)
-        intent.putExtra("hotel_id", hotel_id).putExtra("hotel_name", hotel_name)
+        intent.putExtra("hotel_id", hotel_id).putExtra("hotel_name", hotel_name).putExtra("city_name",city_name)
             .putExtra("review_score", review_score).putExtra("review_score_word", review_score_word)
             .putExtra("address", address).putExtra("distance_to_cc", distance_to_cc)
             .putExtra("is_free_cancellable", is_free_cancellable)
             .putExtra("hotel_include_breakfast", hotel_include_breakfast)
             .putExtra("min_total_price", min_total_price)
-            .putExtra("url", url)
+            .putExtra("url", url).putExtra("max_photo_url",max_photo_url)
         startActivity(intent)
     }
 }

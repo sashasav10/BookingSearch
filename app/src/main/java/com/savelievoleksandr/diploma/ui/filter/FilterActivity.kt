@@ -66,7 +66,6 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
             val dateRangePicker =
                 MaterialDatePicker.Builder.dateRangePicker()
                     .setTitleText("Select dates")
-                    //.setTheme(R.style.Theme_App)
                     .build()
             dateRangePicker.show(supportFragmentManager, "tag")
             val format = SimpleDateFormat("yyyy-MM-dd")
