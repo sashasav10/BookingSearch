@@ -2,6 +2,8 @@ package com.savelievoleksandr.diploma.ui.filter
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,6 +21,7 @@ import com.savelievoleksandr.diploma.ui.GeneralBinding
 import com.savelievoleksandr.diploma.ui.auth.LoginActivity
 import com.savelievoleksandr.diploma.ui.favorite.FavoriteActivity
 import com.savelievoleksandr.diploma.ui.hotels.HotelActivity
+import com.savelievoleksandr.diploma.ui.main.MainActivity
 import com.savelievoleksandr.diploma.ui.personFragment.PersonFragment
 import com.savelievoleksandr.diploma.ui.searchCity.SearchCityActivity
 import java.text.SimpleDateFormat
@@ -127,31 +130,41 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
+        if (FirebaseAuth.getInstance().currentUser?.uid != null) {
+            menu.findItem(R.id.nav_account).setIcon(R.drawable.ic_baseline_exit_to_app_24)
+        }
+        else menu.findItem(R.id.nav_account).setIcon(R.drawable.ic_account)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
+            R.id.nav_home -> {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                intent.putExtra("EXIT", true)
+                startActivity(intent)
+            }
             R.id.nav_saved -> startActivity(Intent(this, FavoriteActivity::class.java))
             R.id.nav_account -> {
-                if (FirebaseAuth.getInstance().currentUser?.uid != null) Toast.makeText(
-                    this,
-                    "You're already logged in",
-                    Toast.LENGTH_SHORT
-                ).show()
-                else startActivity(Intent(this, LoginActivity::class.java))
-            }
-            R.id.nav_logout -> {
-                FirebaseAuth.getInstance().signOut()
-                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(com.firebase.ui.auth.R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-                val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-                mGoogleSignInClient.signOut().addOnCompleteListener {
-                    Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+                if (FirebaseAuth.getInstance().currentUser?.uid != null) {
+                    FirebaseAuth.getInstance().signOut()
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(com.firebase.ui.auth.R.string.default_web_client_id))
+                        .requestEmail()
+                        .build()
+                    val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+                    mGoogleSignInClient.signOut().addOnCompleteListener {
+                        Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+                    }
+                    item.setIcon(R.drawable.ic_account)
+                } else {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    Handler(Looper.getMainLooper()).postDelayed(
+                        {item.setIcon(R.drawable.ic_baseline_exit_to_app_24)},1000)
                 }
+
             }
         }
         return super.onOptionsItemSelected(item)

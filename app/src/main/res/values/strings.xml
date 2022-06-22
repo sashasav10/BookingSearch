@@ -34,4 +34,8 @@
     <string name="account">Account</string>
     <string name="favorite">Favorite</string>
     <string name="mandarin_hotel">Mandarin hotel</string>
+    <string name="register">Don\'t have an account?\n Click here to register</string>
+    <string name="log_in">Log in</string>
+    <string name="account_login">Account Login</string>
+    <string name="home">Home</string>
 </resources>

@@ -57,24 +57,30 @@ class PersonFragment : DialogFragment(R.layout.filter_fragment) {
             roomCount.text = room.toString()
         }
         minusRo.setOnClickListener {
-            room--
-            roomCount.text = room.toString()
+            if (room > 1) {
+                room--
+                roomCount.text = room.toString()
+            }
         }
         addAd.setOnClickListener {
             adult++
             adultCount.text = adult.toString()
         }
         minusAd.setOnClickListener {
-            adult--
-            adultCount.text = adult.toString()
+            if (adult > 1) {
+                adult--
+                adultCount.text = adult.toString()
+            }
         }
         addCh.setOnClickListener {
             children++
             childCount.text = children.toString()
         }
         minusCh.setOnClickListener {
-            children--
-            childCount.text = children.toString()
+            if (children > 0) {
+                children--
+                childCount.text = children.toString()
+            }
         }
         confirmBtn.setOnClickListener {
             listener!!.sendInput(room, adult, children)
