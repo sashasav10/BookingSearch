@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,19 +17,18 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.savelievoleksandr.diploma.R
-import com.savelievoleksandr.diploma.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    val Req_Code:Int=123
-    val firebaseAuth= FirebaseAuth.getInstance()
+    val Req_Code: Int = 123
+    val firebaseAuth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val textEmail: TextView = findViewById(R.id.login_email)
         val editTextPassword: TextView = findViewById(R.id.login_password)
         val signInBtn: Button = findViewById(R.id.signInBtn)
-        val gooLoginBtn:com.google.android.gms.common.SignInButton = findViewById(R.id.gooLoginBtn)
+        val gooLoginBtn: com.google.android.gms.common.SignInButton = findViewById(R.id.gooLoginBtn)
         val registerBtn: TextView = findViewById(R.id.text_view_register)
         registerBtn.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -72,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
 
             }
         }
-        gooLoginBtn.setOnClickListener{
+        gooLoginBtn.setOnClickListener {
             FirebaseApp.initializeApp(this)
 
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -98,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             if (account != null) {
                 UpdateUI(account)
-                Toast.makeText(this,"You're already signed in",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Signed in successfully", Toast.LENGTH_SHORT).show()
             }
         } catch (e: ApiException) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()

@@ -13,18 +13,23 @@ import com.savelievoleksandr.diploma.R
 import com.savelievoleksandr.diploma.databinding.FilterFragmentBinding
 
 
-class PersonFragment : DialogFragment(R.layout.filter_fragment){
+class PersonFragment : DialogFragment(R.layout.filter_fragment) {
     private lateinit var binding: FilterFragmentBinding
 
     interface OnInputListener {
-        fun sendInput(room:Int,adult:Int,children:Int)
+        fun sendInput(room: Int, adult: Int, children: Int)
     }
+
     private var listener: OnInputListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val window = dialog?.window
         window?.setGravity(Gravity.BOTTOM)
-        return inflater.inflate(R.layout.filter_fragment,container,false)
+        return inflater.inflate(R.layout.filter_fragment, container, false)
     }
 
 
@@ -79,6 +84,6 @@ class PersonFragment : DialogFragment(R.layout.filter_fragment){
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener=context as OnInputListener
+        listener = context as OnInputListener
     }
 }

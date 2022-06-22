@@ -15,22 +15,22 @@ import com.savelievoleksandr.diploma.data.hotels.ResultDto
 
 interface OnHotelClick {
     fun onClick(
-        hotel_id:Int,
-        hotel_name:String,
-        city_name:String,
-        review_score:Double,
-        review_score_word:String,
-        address:String,
-        distance_to_cc:Double,
-        is_free_cancellable:Byte,
-        hotel_include_breakfast:Byte,
-        min_total_price:Double,
-        url:String,
-        max_photo_url:String
+        hotel_id: Int,
+        hotel_name: String,
+        city_name: String,
+        review_score: Double,
+        review_score_word: String,
+        address: String,
+        distance_to_cc: Double,
+        is_free_cancellable: Byte,
+        hotel_include_breakfast: Byte,
+        min_total_price: Double,
+        url: String,
+        max_photo_url: String
     )
 }
 
-class HotelAdapter(val hotelClick: OnHotelClick?,private val hotels: HotelDto) :
+class HotelAdapter(val hotelClick: OnHotelClick?, private val hotels: HotelDto) :
     RecyclerView.Adapter<HotelAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotelAdapter.ViewHolder {

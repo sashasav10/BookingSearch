@@ -2,14 +2,22 @@ package com.savelievoleksandr.diploma.ui.filter
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.auth.FirebaseAuth
+import com.savelievoleksandr.diploma.R
 import com.savelievoleksandr.diploma.databinding.ActivityFilterBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
+import com.savelievoleksandr.diploma.ui.auth.LoginActivity
+import com.savelievoleksandr.diploma.ui.favorite.FavoriteActivity
 import com.savelievoleksandr.diploma.ui.hotels.HotelActivity
 import com.savelievoleksandr.diploma.ui.personFragment.PersonFragment
 import com.savelievoleksandr.diploma.ui.searchCity.SearchCityActivity
@@ -115,5 +123,37 @@ class FilterActivity : GeneralBinding<ActivityFilterBinding>(ActivityFilterBindi
         this.children = children
         val filterTextView: TextView = binding.filterTextView
         filterTextView.text = "${this.room} room | ${this.adult} adilts | ${this.children} children"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.nav_saved -> startActivity(Intent(this, FavoriteActivity::class.java))
+            R.id.nav_account -> {
+                if (FirebaseAuth.getInstance().currentUser?.uid != null) Toast.makeText(
+                    this,
+                    "You're already logged in",
+                    Toast.LENGTH_SHORT
+                ).show()
+                else startActivity(Intent(this, LoginActivity::class.java))
+            }
+            R.id.nav_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(com.firebase.ui.auth.R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+                val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+                mGoogleSignInClient.signOut().addOnCompleteListener {
+                    Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

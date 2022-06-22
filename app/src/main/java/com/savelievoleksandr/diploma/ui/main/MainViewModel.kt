@@ -22,7 +22,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             hotelRepository.getHotel(
                 "2022-08-12", 220, "country", 2,
-                "UAH", "2022-08-10", 1,null
+                "UAH", "2022-08-10", 1, null
             ) {
                 _popularHotelResult.value = it
             }

@@ -40,7 +40,7 @@ class PopularHotelAdapter(private val hotels: HotelDto) :
                 hotelNameMP.text = data.hotel_name.substring(0, 35) + "..."
             } else hotelNameMP.text = data.hotel_name
             if (data.city_name_en.length > 35) {
-                cityNameMP.text = data.city_name_en.substring(0, 35)+ "..."
+                cityNameMP.text = data.city_name_en.substring(0, 35) + "..."
             } else cityNameMP.text = data.city_name_en
             Glide.with(context)
                 .load(data.max_photo_url)

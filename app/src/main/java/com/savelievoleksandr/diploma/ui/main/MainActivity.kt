@@ -55,9 +55,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId) {
             R.id.nav_saved -> startActivity(Intent(this, FavoriteActivity::class.java))
-            R.id.nav_account -> startActivity(Intent(this, LoginActivity::class.java))
+            R.id.nav_account -> {
+                if (FirebaseAuth.getInstance().currentUser?.uid != null) Toast.makeText(
+                    this,
+                    "You're already logged in",
+                    Toast.LENGTH_SHORT
+                ).show()
+                else startActivity(Intent(this, LoginActivity::class.java))
+            }
             R.id.nav_logout -> {
                 FirebaseAuth.getInstance().signOut()
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

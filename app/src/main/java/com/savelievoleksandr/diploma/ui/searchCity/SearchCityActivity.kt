@@ -6,12 +6,20 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.savelievoleksandr.diploma.R
 import com.savelievoleksandr.diploma.databinding.ActivitySearchCityBinding
 import com.savelievoleksandr.diploma.ui.GeneralBinding
+import com.savelievoleksandr.diploma.ui.auth.LoginActivity
+import com.savelievoleksandr.diploma.ui.favorite.FavoriteActivity
 import com.savelievoleksandr.diploma.ui.filter.FilterActivity
 
 class SearchCityActivity :
@@ -81,5 +89,38 @@ class SearchCityActivity :
             .putExtra("checkoutDate", checkoutDate)
             .putExtra("checkinDate", checkinDate)
         startActivity(intent)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.nav_saved -> startActivity(Intent(this, FavoriteActivity::class.java))
+            R.id.nav_account -> {
+                if (FirebaseAuth.getInstance().currentUser?.uid != null) Toast.makeText(
+                    this,
+                    "You're already logged in",
+                    Toast.LENGTH_SHORT
+                ).show()
+                else startActivity(Intent(this, LoginActivity::class.java))
+            }
+            R.id.nav_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(com.firebase.ui.auth.R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+                val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+                mGoogleSignInClient.signOut().addOnCompleteListener {
+                    Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

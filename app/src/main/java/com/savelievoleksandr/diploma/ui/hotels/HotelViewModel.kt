@@ -1,12 +1,10 @@
 package com.savelievoleksandr.diploma.ui.hotels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.savelievoleksandr.diploma.data.hotels.HotelDto
-import com.savelievoleksandr.diploma.data.hotels.ResultDto
 import com.savelievoleksandr.diploma.data.hotels.HotelRepository
 import kotlinx.coroutines.launch
 

@@ -8,18 +8,18 @@ import com.savelievoleksandr.diploma.data.locations.LocationDto
 import com.savelievoleksandr.diploma.data.locations.LocationRepository
 import kotlinx.coroutines.launch
 
-class SearchCityViewModel: ViewModel() {
+class SearchCityViewModel : ViewModel() {
     private val _locationResult = MutableLiveData<LocationDto>()
     var locationResult: LiveData<LocationDto> = _locationResult
 
     private val hotelRepository = LocationRepository()
 
-    fun getLocation(cityName:String) {
+    fun getLocation(cityName: String) {
         viewModelScope.launch {
             hotelRepository.getLocation(cityName) {
                 _locationResult.value = it
             }
         }
-        locationResult=_locationResult
+        locationResult = _locationResult
     }
 }

@@ -32,4 +32,6 @@
     <string name="_2_960_properties">2,960 properties</string>
     <string name="saved">Saved</string>
     <string name="account">Account</string>
+    <string name="favorite">Favorite</string>
+    <string name="mandarin_hotel">Mandarin hotel</string>
 </resources>

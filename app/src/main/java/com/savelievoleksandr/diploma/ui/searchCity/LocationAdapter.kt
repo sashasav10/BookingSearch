@@ -51,7 +51,9 @@ class LocationAdapter(val locationClick: OnLocationClick) :
         private val labelLocationTV: TextView = itemView.findViewById(R.id.labelLocationTV)
         private val
                 regionLocationTV: TextView = itemView.findViewById(R.id.regionLocationTV)
-        private val propertiesLocationTV: TextView = itemView.findViewById(R.id.propertiesLocationTV)
+        private val propertiesLocationTV: TextView =
+            itemView.findViewById(R.id.propertiesLocationTV)
+
         fun bind(data: LocationDtoItem, context: Context) {
             itemView.setOnClickListener {
                 locationClick.onClick(data.dest_id, data.label, data.dest_type)

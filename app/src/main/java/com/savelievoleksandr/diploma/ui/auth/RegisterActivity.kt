@@ -1,6 +1,5 @@
 package com.savelievoleksandr.diploma.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.savelievoleksandr.diploma.R
-import com.savelievoleksandr.diploma.ui.main.MainActivity
 
 class RegisterActivity : AppCompatActivity() {
 
